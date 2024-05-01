@@ -6,19 +6,44 @@ import { IoSearchOutline } from "react-icons/io5";
 const Navbar = () => {
   const navLinks = (
     <>
-      <NavLink to={`/`}>
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? "text-[#ff3811]" : "text-black"
+        }
+        to={`/`}
+      >
         <li>Home</li>
       </NavLink>
-      <NavLink to={`/about`}>
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? "text-[#ff3811]" : "text-black"
+        }
+        to={`/about`}
+      >
         <li>About</li>
       </NavLink>
-      <NavLink to={`/services`}>
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? "text-[#ff3811]" : "text-black"
+        }
+        to={`/services`}
+      >
         <li>Services</li>
       </NavLink>
-      <NavLink to={`/blog`}>
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? "text-[#ff3811]" : "text-black"
+        }
+        to={`/blog`}
+      >
         <li>Blog</li>
       </NavLink>
-      <NavLink to={`/contact`}>
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? "text-[#ff3811]" : "text-black"
+        }
+        to={`/contact`}
+      >
         <li>Contact</li>
       </NavLink>
     </>
