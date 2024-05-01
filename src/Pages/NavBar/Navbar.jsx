@@ -1,6 +1,31 @@
+import { NavLink } from "react-router-dom";
+import logo from "../../../public/assets/logo.svg";
+import { AiOutlineShopping } from "react-icons/ai";
+import { IoSearchOutline } from "react-icons/io5";
+
 const Navbar = () => {
+  const navLinks = (
+    <>
+      <NavLink to={`/`}>
+        <li>Home</li>
+      </NavLink>
+      <NavLink to={`/about`}>
+        <li>About</li>
+      </NavLink>
+      <NavLink to={`/services`}>
+        <li>Services</li>
+      </NavLink>
+      <NavLink to={`/blog`}>
+        <li>Blog</li>
+      </NavLink>
+      <NavLink to={`/contact`}>
+        <li>Contact</li>
+      </NavLink>
+    </>
+  );
+
   return (
-    <div>
+    <div className="my-6">
       <div className="navbar bg-base-100">
         <div className="navbar-start">
           <div className="dropdown">
@@ -24,52 +49,24 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
-              <li>
-                <a>Item 1</a>
-              </li>
-              <li>
-                <a>Parent</a>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a>Item 3</a>
-              </li>
+              {navLinks}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          <a className="btn btn-ghost  text-xl">
+            <img className="lg:h-[60px] h-[40px]" src={logo} alt="" />
+          </a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <details>
-                <summary>Parent</summary>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </details>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
+          <ul className="menu menu-horizontal space-x-8 text-lg font-semibold px-1">
+            {navLinks}
           </ul>
         </div>
-        <div className="navbar-end">
-          <a className="btn">Button</a>
+        <div className="navbar-end space-x-4">
+          <AiOutlineShopping color="#444444" size={25} />
+          <IoSearchOutline color="#444444" size={25} />
+          <button className="border rounded-[5px] lg:px-6 border-[#FF3811] lg:py-3 text-sm lg:text-lg px-4 py-2 font-semibold text-[#FF3811]">
+            Appointment
+          </button>
         </div>
       </div>
     </div>
