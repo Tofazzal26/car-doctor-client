@@ -14,7 +14,7 @@ const Banner = () => {
             src={banner5}
             className="w-full h-[230px] lg:h-[700px] rounded-[12px]"
           />
-          <div className="absolute lg:top-[135px] top-[45px] left-[30px] lg:left-[80px]">
+          <div className="absolute lg:top-[135px] top-[45px] left-[30px] lg:left-[80px] ">
             <div className="w-[460px] space-y-2 lg:space-y-[30px]">
               <h1 className="lg:text-[60px] font-bold text-white lg:leading-[70px]">
                 Affordable Price For Car Servicing
