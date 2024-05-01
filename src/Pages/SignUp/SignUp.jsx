@@ -1,11 +1,11 @@
-import { NavLink } from "react-router-dom";
 import lock from "../../../public/assets/images/login/login.svg";
+import { NavLink } from "react-router-dom";
 
-const Login = () => {
-  const handleLogin = (e) => {
-    e.preventDefault();
-  };
+const handleSignUp = (e) => {
+  e.preventDefault();
+};
 
+const SignUp = () => {
   return (
     <div>
       <div className="grid grid-cols-1 items-center my-4 lg:my-4 lg:grid-cols-5">
@@ -14,9 +14,16 @@ const Login = () => {
         </div>
         <div className="col-span-3 border-2 rounded-lg">
           <div className="lg:p-14">
-            <h1 className="text-[40px] font-semibold text-center">Login</h1>
+            <h1 className="text-[40px] font-semibold text-center">Sign In</h1>
             <div>
-              <form onSubmit={handleLogin}>
+              <form onSubmit={handleSignUp}>
+                <label className="text-[18px] font-semibold">Name</label>
+                <br />
+                <input
+                  type="text"
+                  placeholder="Type here"
+                  className="input input-bordered w-full my-4"
+                />
                 <label className="text-[18px] font-semibold">Email</label>
                 <br />
                 <input
@@ -30,7 +37,7 @@ const Login = () => {
                 </label>
                 <br />
                 <input
-                  type="text"
+                  type="password"
                   placeholder="Type here"
                   className="input input-bordered my-4 w-full"
                 />
@@ -42,9 +49,9 @@ const Login = () => {
                 />
                 <br />
                 <h2 className="text-lg text-center mt-4 font-semibold">
-                  You Have No Account ?{" "}
-                  <NavLink to={"/signUp"} className="text-[#FF3811]">
-                    Sign Up
+                  Have An Account ?{" "}
+                  <NavLink to={"/login"} className="text-[#FF3811]">
+                    Sign In
                   </NavLink>
                 </h2>
               </form>
@@ -56,4 +63,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
