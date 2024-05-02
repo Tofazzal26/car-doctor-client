@@ -1,7 +1,8 @@
 import { GoArrowRight } from "react-icons/go";
+import { NavLink } from "react-router-dom";
 
 const ServiceCard = ({ SrvCard }) => {
-  const { title, price, img } = SrvCard;
+  const { title, price, img, _id } = SrvCard;
 
   return (
     <div>
@@ -13,7 +14,9 @@ const ServiceCard = ({ SrvCard }) => {
           <h2 className="card-title">{title}</h2>
           <div className="flex text-[#FF3811] font-semibold items-center">
             <p className="text-start">Price: ${price}</p>
-            <GoArrowRight size={20} />
+            <NavLink to={`/checkOut/${_id}`}>
+              <GoArrowRight size={25} />
+            </NavLink>
           </div>
         </div>
       </div>
