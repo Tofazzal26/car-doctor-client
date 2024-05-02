@@ -1,11 +1,56 @@
 import lock from "../../../public/assets/images/login/login.svg";
 import { NavLink } from "react-router-dom";
-
-const handleSignUp = (e) => {
-  e.preventDefault();
-};
+import { Toaster, toast } from "react-hot-toast";
+import { useContext } from "react";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const SignUp = () => {
+  const { createUser, updateUserProfile, setProfileLoad } =
+    useContext(AuthContext);
+
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    const name = form.name.value;
+    if (password.length < 6) {
+      return toast.error("Password should be at least 6 characters");
+    }
+
+    if (!/[A-Z]/.test(password)) {
+      return toast.error(
+        "Please ensure your password contains at least one uppercase and one lowercase letter!"
+      );
+    }
+    if (!/[a-z]/.test(password)) {
+      return toast.error(
+        "Please ensure your password contains at least one uppercase and one lowercase letter!"
+      );
+    }
+
+    if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)) {
+      return toast.error("Please enter a valid email address");
+    }
+
+    createUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+        updateUserProfile(name)
+          .then(() => {
+            setProfileLoad(true);
+            // navigate(location?.state ? location.state : "/");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    toast.success("Register Success");
+  };
+
   return (
     <div>
       <div className="grid grid-cols-1 items-center my-4 lg:my-4 lg:grid-cols-5">
@@ -21,6 +66,7 @@ const SignUp = () => {
                 <br />
                 <input
                   type="text"
+                  name="name"
                   placeholder="Type here"
                   className="input input-bordered w-full my-4"
                 />
@@ -28,6 +74,7 @@ const SignUp = () => {
                 <br />
                 <input
                   type="email"
+                  name="email"
                   placeholder="Type here"
                   className="input input-bordered w-full my-4"
                 />
@@ -38,6 +85,7 @@ const SignUp = () => {
                 <br />
                 <input
                   type="password"
+                  name="password"
                   placeholder="Type here"
                   className="input input-bordered my-4 w-full"
                 />
