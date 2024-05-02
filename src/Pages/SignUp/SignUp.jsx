@@ -1,5 +1,5 @@
 import lock from "../../../public/assets/images/login/login.svg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
 import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
@@ -7,6 +7,8 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 const SignUp = () => {
   const { createUser, updateUserProfile, setProfileLoad } =
     useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -39,7 +41,7 @@ const SignUp = () => {
         updateUserProfile(name)
           .then(() => {
             setProfileLoad(true);
-            // navigate(location?.state ? location.state : "/");
+            navigate(location?.state ? location.state : "/");
           })
           .catch((error) => {
             console.log(error);

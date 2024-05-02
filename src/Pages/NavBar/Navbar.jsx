@@ -9,8 +9,6 @@ import toast from "react-hot-toast";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
 
-  console.log(user);
-
   const handleLogOut = () => {
     logOut()
       .then((result) => {
@@ -63,6 +61,16 @@ const Navbar = () => {
       >
         <li>Contact</li>
       </NavLink>
+      {user && (
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "text-[#ff3811]" : "text-black"
+          }
+          to={`/myService`}
+        >
+          <li>My Service</li>
+        </NavLink>
+      )}
     </>
   );
 

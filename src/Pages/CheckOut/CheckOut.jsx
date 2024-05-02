@@ -1,13 +1,20 @@
 import { useContext } from "react";
-import { NavLink, useLoaderData } from "react-router-dom";
+import {
+  NavLink,
+  useLoaderData,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
 
 const CheckOut = () => {
   const loadedCheckOut = useLoaderData();
   const { user } = useContext(AuthContext);
+  const { title, service_id, price, _id, img } = loadedCheckOut || {};
 
-  const { title, service_id, price, _id, img } = loadedCheckOut;
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleOrder = (event) => {
     event.preventDefault();
@@ -21,7 +28,8 @@ const CheckOut = () => {
       customerName: name,
       email,
       date,
-      service: _id,
+      service: title,
+      service_id: _id,
       price: price,
       img,
     };
@@ -38,6 +46,7 @@ const CheckOut = () => {
         console.log(data);
         if (data.insertedId) {
           toast.success("Order Confirm");
+          navigate(location?.state ? location.state : "/");
         }
       });
   };

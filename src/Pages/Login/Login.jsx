@@ -1,4 +1,9 @@
-import { NavLink } from "react-router-dom";
+import {
+  NavLink,
+  useLocation,
+  useNavigate,
+  useNavigation,
+} from "react-router-dom";
 import lock from "../../../public/assets/images/login/login.svg";
 import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
@@ -6,6 +11,8 @@ import { Toaster, toast } from "react-hot-toast";
 const Login = () => {
   const { logInEmailPassword } = useContext(AuthContext);
 
+  const navigate = useNavigate();
+  const location = useLocation();
   const handleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -14,7 +21,7 @@ const Login = () => {
     logInEmailPassword(email, password)
       .then((result) => {
         toast.success("Login Successfully");
-        // navigate(location?.state ? location.state : "/");
+        navigate(location?.state ? location.state : "/");
       })
       .catch((error) => {
         toast.error("Please enter a valid email & password");
