@@ -2,8 +2,25 @@ import { NavLink } from "react-router-dom";
 import logo from "../../../public/assets/logo.svg";
 import { AiOutlineShopping } from "react-icons/ai";
 import { IoSearchOutline } from "react-icons/io5";
+import { useContext } from "react";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
+
+  console.log(user);
+
+  const handleLogOut = () => {
+    logOut()
+      .then((result) => {
+        toast.success("Logout Successful");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const navLinks = (
     <>
       <NavLink
@@ -89,6 +106,20 @@ const Navbar = () => {
         <div className="navbar-end space-x-4">
           <AiOutlineShopping color="#444444" size={25} />
           <IoSearchOutline color="#444444" size={25} />
+          {user ? (
+            <button
+              onClick={handleLogOut}
+              className="border rounded-[5px] lg:px-3 bg-[#FF3811] lg:py-2 text-sm lg:text-base px-4 py-2 font-semibold text-white"
+            >
+              Log Out
+            </button>
+          ) : (
+            <NavLink to={`/login`}>
+              <button className="border rounded-[5px] lg:px-3 bg-[#FF3811] lg:py-2 text-sm lg:text-base px-4 py-2 font-semibold text-white">
+                Log In
+              </button>
+            </NavLink>
+          )}
           <button className="border rounded-[5px] lg:px-6 border-[#FF3811] lg:py-3 text-sm lg:text-lg px-4 py-2 font-semibold text-[#FF3811]">
             Appointment
           </button>

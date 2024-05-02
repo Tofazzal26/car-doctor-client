@@ -1,25 +1,50 @@
+import { useContext } from "react";
 import { NavLink, useLoaderData } from "react-router-dom";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
 
 const CheckOut = () => {
   const loadedCheckOut = useLoaderData();
+  const { user } = useContext(AuthContext);
 
-  const { title, service_id, price, _id } = loadedCheckOut;
+  const { title, service_id, price, _id, img } = loadedCheckOut;
 
   const handleOrder = (event) => {
     event.preventDefault();
     const form = event.target;
-    const email = form.email.value;
+    const email = user?.email;
     const name = form.name.value;
-    const firstName = form.lastName.value;
-    const phone = form.phone.value;
+    const price = form.price.value;
+    const date = form.date.value;
     const message = form.message.value;
-    console.log(email, firstName, phone, name, message);
+    const orderService = {
+      customerName: name,
+      email,
+      date,
+      service: _id,
+      price: price,
+      img,
+    };
+
+    fetch(`http://localhost:4000/car_doctor`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(orderService),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          toast.success("Order Confirm");
+        }
+      });
   };
 
   return (
     <div>
-      <h1>Check Out</h1>
-      <h1>Name: {title}</h1>
+      <h1 className="text-center text-3xl font-semibold">{title}</h1>
 
       <div>
         <div>
@@ -33,27 +58,31 @@ const CheckOut = () => {
                       <input
                         type="text"
                         name="name"
-                        placeholder="First Name"
+                        placeholder="Name"
                         className="input input-bordered w-full my-2"
                       />
                       <input
-                        type="text"
-                        name="lastName"
+                        type="date"
+                        name="date"
                         placeholder="Last Name"
                         className="input input-bordered w-full my-2"
                       />
                     </div>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                       <input
-                        type="text"
-                        name="phone"
-                        placeholder="Your Phone"
+                        type="email"
+                        name="email"
+                        defaultValue={user?.email}
+                        readOnly
+                        placeholder="Email"
                         className="input input-bordered my-2 w-full"
                       />
                       <input
-                        type="email"
-                        name="email"
-                        placeholder="Your Email"
+                        type="text"
+                        name="price"
+                        defaultValue={`$${price}`}
+                        readOnly
+                        placeholder="Price"
                         className="input input-bordered my-2 w-full"
                       />
                     </div>
